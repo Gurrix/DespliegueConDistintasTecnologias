@@ -1,0 +1,81 @@
+version: "3.3"
+services:
+  productpage:
+    container_name: g35-productpage
+    build: ./productpage
+    image: g35/productpage
+    ports:
+     - 9080:9080    
+    environment:
+      - ENABLE_RATINGS=true
+      - DETAILS_HOSTNAME=details
+      - RATINGS_HOSTNAME=ratings
+      - REVIEWS_HOSTNAME=reviews
+
+  details:
+    container_name: g35-details
+    build: ./details
+    image: g35/details
+    environment:
+      - ENABLE_RATINGS=true
+      - DETAILS_HOSTNAME=details
+      - RATINGS_HOSTNAME=ratings
+      - REVIEWS_HOSTNAME=reviews
+
+  reviews:
+    container_name: g35-reviews
+    build: ./reviews/reviews-wlpcfg
+    image: g35/reviews
+    environment:
+      - ENABLE_RATINGS=true # Con/Sin estrellas
+      - SERVICE_VERSION=v3
+      - STAR_COLOR=black
+      - DETAILS_HOSTNAME=details
+      - RATINGS_HOSTNAME=ratings
+      - REVIEWS_HOSTNAME=reviews
+      
+  reviews-v1:
+    container_name: g35-reviews
+    build: ./reviews/reviews-wlpcfg
+    image: g35/reviews-v1
+    environment:
+      - ENABLE_RATINGS=false # Con/Sin estrellas
+      - SERVICE_VERSION=v1
+      - STAR_COLOR=black
+      - DETAILS_HOSTNAME=details
+      - RATINGS_HOSTNAME=ratings
+      - REVIEWS_HOSTNAME=reviews-v1
+
+  reviews-v2:
+    container_name: g35-reviews
+    build: ./reviews/reviews-wlpcfg
+    image: g35/reviews-v2
+    environment:
+      - ENABLE_RATINGS=true # Con/Sin estrellas
+      - SERVICE_VERSION=v2
+      - STAR_COLOR=black
+      - DETAILS_HOSTNAME=details
+      - RATINGS_HOSTNAME=ratings
+      - REVIEWS_HOSTNAME=reviews-v2
+
+  reviews-v3:
+    container_name: g35-reviews
+    build: ./reviews/reviews-wlpcfg
+    image: g35/reviews-v3
+    environment:
+      - ENABLE_RATINGS=true # Con/Sin estrellas
+      - SERVICE_VERSION=v3
+      - STAR_COLOR=red
+      - DETAILS_HOSTNAME=details
+      - RATINGS_HOSTNAME=ratings
+      - REVIEWS_HOSTNAME=reviews-v3
+
+  ratings:
+    container_name: g35-ratings
+    build: ./ratings
+    image: g35/ratings
+    environment:
+      - ENABLE_RATINGS=true
+      - DETAILS_HOSTNAME=details
+      - RATINGS_HOSTNAME=ratings
+      - REVIEWS_HOSTNAME=reviews

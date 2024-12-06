@@ -1,0 +1,17 @@
+# Instalar Docker:
+python3 installDocker.py
+
+# Clonar apliación y modificar título
+python3 crearAppModifTitulo.py
+
+# Crear la imagen de docker:
+sudo docker build -t g35/product-page .
+
+# Arrancar el contenedor:
+sudo docker run --name g35-product-page -p 9080:9080 -e GRUPO_NUMERO="Grupo35" -d g35/product-page
+
+# Detener el contenedor existente:
+sudo docker stop g35-product-page
+
+# Eliminar el contenedor existente:
+sudo docker rm g35-product-page
